@@ -16,12 +16,18 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City saveCity(City city) {
-        return cityRepository.save(city);
+        City cityDB = getCityById(city.getId());
+        if(cityDB == null){
+            return cityRepository.save(city);
+        }
+        //No puede guardarse porque ya existe se lanza una excepcion
+        return cityDB;
     }
 
     @Override
     public City findCityById(int id) {
-        return cityRepository.getById(id);
+        System.out.println("Entrando en SERVICE findCityById");
+        return getCityById(id);
     }
 
     @Override

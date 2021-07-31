@@ -24,6 +24,7 @@ public class CityController {
 
     @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable("id")int id){
+        System.out.println("\n Entrando en getCityById: "+id);
         return ResponseEntity.ok(cityService.findCityById(id));
     }
 
