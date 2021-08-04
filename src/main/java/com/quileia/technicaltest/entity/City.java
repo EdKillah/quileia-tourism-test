@@ -1,21 +1,20 @@
 package com.quileia.technicaltest.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.core.serializer.Serializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(exclude = "tourists")
+@Table(name = "cities") @ToString
 public class City implements Serializable {
 
     @Id
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -25,7 +24,10 @@ public class City implements Serializable {
 
     private String touristicHotel;
 
-
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "city", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<TouristInCity> tourists;
 
 
 }
